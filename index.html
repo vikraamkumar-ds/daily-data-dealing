@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Daily Data Dealing — practical guides to data science, Python, analytics, machine learning, and visualization.">
+  <meta name="theme-color" content="#071a33">
+  <title>Daily Data Dealing | Data • Insights • Better Decisions</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#" aria-label="Daily Data Dealing home">
+      <span class="brand-mark">▥</span><span><strong>Daily <em>Data</em> Dealing</strong><small>Data • Insights • Better Decisions</small></span>
+    </a>
+    <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+    <nav class="nav">
+      <a href="#home">Home</a><a href="#about">About</a><a href="#latest">Blog</a>
+      <a href="#categories">Categories</a><a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-content">
+        <p class="eyebrow">WELCOME TO YOUR DATA JOURNEY</p>
+        <h1>Turn data into<br><span>better decisions.</span></h1>
+        <p class="hero-copy">Practical guides to Python, data science, analytics, and machine learning — explained clearly, one post at a time.</p>
+        <a class="button" href="#latest">Explore latest posts <span>→</span></a>
+      </div>
+      <div class="hero-art" aria-label="Illustration of data analytics charts">
+        <div class="art-window">
+          <div class="window-dots"><i></i><i></i><i></i></div>
+          <div class="chart-title">DATA INSIGHTS <span>● LIVE</span></div>
+          <div class="bars"><i style="height:32%"></i><i style="height:55%"></i><i style="height:43%"></i><i style="height:76%"></i><i style="height:64%"></i><i style="height:92%"></i><i style="height:73%"></i></div>
+          <svg viewBox="0 0 360 100" role="img" aria-label="Rising analytics line chart"><polyline points="8,82 58,66 105,72 150,40 202,50 250,22 302,31 350,8" fill="none" stroke="#10c8f4" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><polyline points="8,82 58,66 105,72 150,40 202,50 250,22 302,31 350,8 350,100 8,100" fill="rgba(16,200,244,.12)" stroke="none"/></svg>
+          <div class="code-line"><b>Python</b> &nbsp; pandas · NumPy · scikit-learn</div>
+        </div>
+        <div class="floating-tag tag-one">📊 Data Analysis</div><div class="floating-tag tag-two">⌘ Python</div>
+      </div>
+    </section>
+
+    <section class="intro-strip" id="about">
+      <div><span class="strip-icon">✦</span><div><strong>Learn by doing</strong><p>Friendly examples and practical tutorials.</p></div></div>
+      <div><span class="strip-icon">⌁</span><div><strong>Make data clear</strong><p>Understand patterns, charts, and models.</p></div></div>
+      <div><span class="strip-icon">↗</span><div><strong>Keep growing</strong><p>Build skills for study and real projects.</p></div></div>
+    </section>
+
+    <section class="content-layout" id="latest">
+      <div class="main-column">
+        <div class="section-heading"><div><p class="eyebrow">THE KNOWLEDGE HUB</p><h2>Latest articles</h2></div><span id="result-count" class="muted">6 articles</span></div>
+        <div class="toolbar">
+          <label class="search-box"><span>⌕</span><input id="search" type="search" placeholder="Search articles..." aria-label="Search articles"></label>
+          <select id="category-filter" aria-label="Filter by category"><option value="All">All categories</option><option>Python</option><option>Data Analysis</option><option>Machine Learning</option><option>Data Visualization</option><option>SQL</option><option>AI</option></select>
+        </div>
+        <div class="post-grid" id="post-grid"></div>
+        <p class="empty-state" id="empty-state" hidden>No articles found. Try another search or category.</p>
+        <div class="note-box"><strong>✍️ Your next post starts here</strong><p>To add articles, open <code>script.js</code> and copy one of the sample post objects in the <code>posts</code> list. Edit its title, category, summary, date, and article text.</p></div>
+      </div>
+      <aside class="sidebar">
+        <div class="sidebar-card" id="categories"><h3>Explore categories</h3><div class="category-list" id="category-list"></div></div>
+        <div class="sidebar-card about-card"><div class="avatar">DD</div><h3>About Daily Data Dealing</h3><p>A learning space for curious minds who want to understand data and use it to solve real-world problems.</p><a href="#about" class="text-link">Our mission →</a></div>
+        <div class="sidebar-card newsletter"><span class="newsletter-icon">✉</span><h3>Stay in the loop</h3><p>Get new data science tutorials in your inbox.</p><form id="newsletter-form"><input type="email" placeholder="Your email address" aria-label="Email address" required><button class="button button-full" type="submit">Join newsletter</button></form><small id="newsletter-message">Demo form — connect an email service to collect signups.</small></div>
+      </aside>
+    </section>
+
+    <section class="about-section">
+      <div><p class="eyebrow">WHY DAILY DATA DEALING?</p><h2>Data skills, made approachable.</h2><p>Whether you are starting with Python or exploring machine learning, our goal is to make technical ideas understandable with step-by-step explanations, examples, and projects you can try yourself.</p><a href="#latest" class="text-link">Start learning today →</a></div>
+      <div class="topic-pills"><span>Python</span><span>Pandas</span><span>SQL</span><span>Statistics</span><span>Machine Learning</span><span>Power BI</span><span>Visualization</span><span>Generative AI</span></div>
+    </section>
+
+    <section class="contact-section" id="contact"><div><p class="eyebrow">LET'S CONNECT</p><h2>Have a topic in mind?</h2><p>Suggest a tutorial or share what you are learning.</p></div><a class="button" href="mailto:hello@daily-data-dealing.example">Contact the editor →</a></section>
+  </main>
+
+  <footer><a class="brand footer-brand" href="#"><span class="brand-mark">▥</span><span><strong>Daily <em>Data</em> Dealing</strong><small>Data • Insights • Better Decisions</small></span></a><p>© <span id="year"></span> Daily Data Dealing. Keep learning, keep exploring.</p><div><a href="#about">About</a><a href="#latest">Articles</a><a href="#contact">Contact</a></div></footer>
+
+  <dialog id="article-dialog" class="article-dialog"><button class="dialog-close" aria-label="Close article">×</button><div id="article-content"></div></dialog>
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+// Add or edit posts in this list. For each article, change title, category, summary, date, readTime, icon, theme, and content.
+const posts = [
+  {id:1,title:"Getting Started with Python for Data Science",category:"Python",summary:"Learn why Python is one of the most popular languages for data science, and set up your first simple workflow.",date:"Oct 20, 2026",readTime:"5 min read",icon:"🐍",theme:"python",content:`<p>Python is a beginner-friendly programming language with a rich ecosystem for working with data. Its readable syntax makes it a great first step into data science.</p><h3>Why learn Python?</h3><p>Python is used for cleaning datasets, exploring patterns, building visualizations, automating repetitive tasks, and training machine-learning models.</p><h3>Your first step</h3><p>Install Python or open a notebook environment, then try this tiny example:</p><pre>name = "Data Science"\nprint("Welcome to", name)</pre><p>Next, explore libraries such as pandas for tables, NumPy for numerical work, and Matplotlib for charts.</p>`},
+  {id:2,title:"Exploratory Data Analysis (EDA) with Pandas",category:"Data Analysis",summary:"Discover how to inspect, clean, and understand a dataset before building charts or models.",date:"Oct 18, 2026",readTime:"6 min read",icon:"🔎",theme:"analysis",content:`<p>Exploratory Data Analysis (EDA) is the process of getting to know your data before making conclusions. It helps reveal missing values, unusual records, relationships, and trends.</p><h3>A simple EDA checklist</h3><p>1. Inspect the first rows. 2. Check column types. 3. Count missing values. 4. Review summary statistics. 5. Visualize important columns.</p><pre>import pandas as pd\ndf = pd.read_csv("data.csv")\nprint(df.head())\nprint(df.info())\nprint(df.isna().sum())\nprint(df.describe())</pre><p>Always ask whether your data is complete and representative before interpreting the results.</p>`},
+  {id:3,title:"Machine Learning Explained for Beginners",category:"Machine Learning",summary:"Understand the difference between supervised and unsupervised learning with approachable examples.",date:"Oct 15, 2026",readTime:"7 min read",icon:"🧠",theme:"ml",content:`<p>Machine learning is a way for computers to learn patterns from examples and use those patterns to make predictions or group similar things.</p><h3>Two common approaches</h3><p><strong>Supervised learning:</strong> learn from examples that include the answer, such as predicting house prices from past sales.</p><p><strong>Unsupervised learning:</strong> look for structure without supplied answers, such as grouping customers by similar behavior.</p><h3>Remember</h3><p>A model is only as useful as its data, evaluation, and fit for the real-world problem. Test it carefully before relying on its predictions.</p>`},
+  {id:4,title:"Data Visualization with Matplotlib",category:"Data Visualization",summary:"Turn numbers into clear charts and learn how to choose a chart that answers your question.",date:"Oct 12, 2026",readTime:"6 min read",icon:"📊",theme:"viz",content:`<p>Good data visualization makes a finding easier to understand. Start with the question you want the reader to answer, then choose a chart that supports it.</p><h3>Common chart choices</h3><p>Use a bar chart to compare categories, a line chart to show change over time, and a scatter plot to examine the relationship between two numeric variables.</p><pre>import matplotlib.pyplot as plt\nmonths = ["Jan", "Feb", "Mar"]\nsales = [12, 18, 15]\nplt.plot(months, sales, marker="o")\nplt.title("Monthly Sales")\nplt.ylabel("Sales")\nplt.show()</pre><p>Label axes, use readable text, and avoid decorative effects that distract from the data.</p>`},
+  {id:5,title:"SQL Basics Every Data Analyst Should Know",category:"SQL",summary:"Learn how SELECT, WHERE, GROUP BY, and ORDER BY help you answer questions from a database.",date:"Oct 10, 2026",readTime:"4 min read",icon:"▤",theme:"sql",content:`<p>SQL is a language for querying data stored in relational databases. Analysts use it to select rows, filter records, combine tables, and summarize results.</p><h3>A starter query</h3><pre>SELECT category, COUNT(*) AS total\nFROM products\nWHERE price > 100\nGROUP BY category\nORDER BY total DESC;</pre><p>Read a query from top to bottom to understand the intended result, while remembering that SQL has its own logical processing order.</p>`},
+  {id:6,title:"How Generative AI Supports Data Work",category:"AI",summary:"Explore practical ways AI assistants can help explain code, draft queries, and brainstorm analysis ideas responsibly.",date:"Oct 08, 2026",readTime:"5 min read",icon:"✧",theme:"ai",content:`<p>Generative AI tools can help data practitioners brainstorm analysis questions, explain unfamiliar code, draft documentation, and suggest starting points for SQL or Python tasks.</p><h3>Use it responsibly</h3><p>Check generated code before running it, validate calculations against your data, and never paste private or sensitive data into a tool unless you are authorized and its privacy terms allow it.</p><p>Think of AI as a collaborator, not an unquestionable source of truth. Your domain knowledge and verification remain essential.</p>`}
+];
+
+const grid = document.querySelector("#post-grid");
+const search = document.querySelector("#search");
+const filter = document.querySelector("#category-filter");
+const count = document.querySelector("#result-count");
+const empty = document.querySelector("#empty-state");
+const dialog = document.querySelector("#article-dialog");
+const articleContent = document.querySelector("#article-content");
+const categoryCounts = posts.reduce((acc,p)=>(acc[p.category]=(acc[p.category]||0)+1,acc),{});
+function renderPosts(){
+  const q=search.value.trim().toLowerCase(), cat=filter.value;
+  const visible=posts.filter(p=>(cat==="All"||p.category===cat)&&`${p.title} ${p.summary} ${p.category}`.toLowerCase().includes(q));
+  count.textContent=`${visible.length} article${visible.length===1?"":"s"}`;
+  empty.hidden=visible.length>0;
+  grid.innerHTML=visible.map(p=>`<article class="post-card"><div class="post-visual visual-${p.theme}"><span class="visual-icon">${p.icon}</span><span class="visual-label">${p.category.toUpperCase()}</span></div><div class="post-body"><span class="category-tag">${p.category}</span><h3>${p.title}</h3><p>${p.summary}</p><div class="post-meta"><span>▦ ${p.date}</span><span>◷ ${p.readTime}</span></div><button class="read-link" data-post="${p.id}">Read article →</button></div></article>`).join("");
+}
+function renderCategories(){
+  const list=document.querySelector("#category-list");
+  list.innerHTML=Object.entries(categoryCounts).map(([cat,n])=>`<button class="category-button" data-category="${cat}">${cat}<span class="count">${n}</span></button>`).join("");
+}
+grid.addEventListener("click",e=>{const b=e.target.closest("[data-post]");if(!b)return;const p=posts.find(x=>x.id===Number(b.dataset.post));articleContent.innerHTML=`<span class="category-tag">${p.category}</span><h2>${p.title}</h2><div class="article-date">${p.date} · ${p.readTime}</div>${p.content}`;dialog.showModal();});
+document.querySelector(".dialog-close").addEventListener("click",()=>dialog.close());
+dialog.addEventListener("click",e=>{if(e.target===dialog)dialog.close();});
+search.addEventListener("input",renderPosts);
+filter.addEventListener("change",renderPosts);
+document.querySelector("#category-list").addEventListener("click",e=>{const b=e.target.closest("[data-category]");if(!b)return;filter.value=b.dataset.category;renderPosts();document.querySelector("#latest").scrollIntoView({behavior:"smooth"});});
+const toggle=document.querySelector(".menu-toggle"),nav=document.querySelector(".nav");
+toggle.addEventListener("click",()=>{const open=nav.classList.toggle("open");toggle.setAttribute("aria-expanded",String(open));});
+nav.addEventListener("click",e=>{if(e.target.tagName==="A"){nav.classList.remove("open");toggle.setAttribute("aria-expanded","false");}});
+document.querySelector("#newsletter-form").addEventListener("submit",e=>{e.preventDefault();document.querySelector("#newsletter-message").textContent="Thanks! This demo form is not connected to an email service yet.";});
+document.querySelector("#year").textContent=new Date().getFullYear();
+renderPosts();renderCategories();
